@@ -1,0 +1,15 @@
+{
+    "name": "paste.melonbot.io",
+    "version": "0.1.0",
+    "description": "An open-source pastebin clone.",
+    "main": "src/index.js",
+    "author": "Lemon Rose (japandotorg) [inthedark.org#0666] <japandotorg@pm.me>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Melon-Development-ZUI/pastebin.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Melon-Development-ZUI/pastebin/issues"
+    }
+}
