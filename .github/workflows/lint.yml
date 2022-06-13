@@ -1,0 +1,37 @@
+name: Lint
+
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3
+      - name: Set up Node
+        uses: actions/setup-node@eeb10cff27034e7acf239c5d29f62154018672fd # v3
+        with:
+          node-version: '16'
+          cache: yarn
+      - name: Installation
+        run: yarn
+      - name: Check immutable yarn.lock
+        run: git diff --exit-code
+      - name: Lint
+        run: |
+          echo "::add-matcher::.github/workflows/cspell-problem-matcher.json"
+          yarn lint:ci
+      - name: Prettier Code
+        run: yarn format:diff
