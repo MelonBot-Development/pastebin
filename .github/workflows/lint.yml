@@ -32,9 +32,5 @@ jobs:
         run: yarn
       - name: Check immutable yarn.lock
         run: git diff --exit-code
-      - name: Lint
-        run: |
-          echo "::add-matcher::.github/workflows/cspell-problem-matcher.json"
-          yarn lint:ci
       - name: Prettier Code
         run: yarn format:diff
