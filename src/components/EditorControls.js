@@ -4,6 +4,7 @@ import { gzip } from "pako";
 import history from "history/browser";
 import copy from "copy-to-clipboard";
 
+import { MenuButton, Button } from "./Menu";
 import { languages } from "../utils/langs";
 import themes from "../style/theme";
 import { postUrl } from "../utils/constants";
