@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
+import Editor from "./components/Editor";
 import parseContentType from 'content-type-parser';
+import { languageIds } from "./utils/langs";
+import { bytebinUrl } from "./utils/constants";
 
 function getPasteIdFromUrl() {
     const path = window.location.pathname;
@@ -12,7 +15,7 @@ function getPasteIdFromUrl() {
 
 async function loadFromBytebin(id) {
     try {
-        const resp = await fetch("" + id);
+        const resp = await fetch(bytebinUrl + id);
         if (resp.ok) {
             const content = await resp.text();
             const type = parseLanguageFromContentType(
@@ -87,7 +90,7 @@ export default function App() {
     }, [pasteId, state, setContent]);
 
     return (
-        <Future
+        <Editor
             forcedContent={forcedContent}
             setForcedContent={setContent}
             actualContent={actualContent}
