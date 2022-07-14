@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta property="og:title" content="Workbin" />
+    <meta property="og:description" content="A simple paste service run entirely on Cloudflare's edge." />
+    <meta property="theme-color" content="#87ceeb" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
+
+    <!-- Formatting -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.4/purify.min.js"
+      integrity="sha512-jGh38w63cHRzfBHtyKgEMMkJswUFXDA3YXrDjaE8ptzxV5DDkLDUDjtGUy5tmDkOXHWsItKfFjocaEtj1WuVnQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.2/marked.min.js"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+    <title>Workbin</title>
+  </head>
+  <body>
+    <div class="nav">
+      <span><a href="https://workbin.dev">Workbin</a></span>
+      <div class="fill"></div>
+      <select name="language" id="language" onchange="manager.setLanguage()">
+        <option value="python">Python</option>
+        <option value="abap">Abap</option>
+        <option value="abc">Abc</option>
+        <option value="actionscript">Actionscript</option>
+        <option value="ada">Ada</option>
+        <option value="alda">Alda</option>
+        <option value="apache_conf">Apache_Conf</option>
+        <option value="apex">Apex</option>
+        <option value="applescript">Applescript</option>
+        <option value="aql">Aql</option>
+        <option value="asciidoc">Asciidoc</option>
+        <option value="asl">Asl</option>
+        <option value="assembly_x86">Assembly_X86</option>
+        <option value="autohotkey">Autohotkey</option>
+        <option value="batchfile">Batchfile</option>
+        <option value="brainfuck">Brainfuck</option>
+        <option value="c9search">C9Search</option>
+        <option value="c_cpp">C_Cpp</option>
+        <option value="cirru">Cirru</option>
+        <option value="clojure">Clojure</option>
+        <option value="cobol">Cobol</option>
+        <option value="coffee">Coffee</option>
+        <option value="coldfusion">Coldfusion</option>
+        <option value="crystal">Crystal</option>
+        <option value="csharp">Csharp</option>
+        <option value="csound_document">Csound_Document</option>
+        <option value="csound_orchestra">Csound_Orchestra</option>
+        <option value="csound_score">Csound_Score</option>
+        <option value="csp">Csp</option>
+        <option value="css">Css</option>
+        <option value="curly">Curly</option>
+        <option value="dart">Dart</option>
+        <option value="diff">Diff</option>
+        <option value="django">Django</option>
+        <option value="d">D</option>
+        <option value="dockerfile">Dockerfile</option>
+        <option value="dot">Dot</option>
+        <option value="drools">Drools</option>
+        <option value="edifact">Edifact</option>
+        <option value="eiffel">Eiffel</option>
+        <option value="ejs">Ejs</option>
+        <option value="elixir">Elixir</option>
+        <option value="elm">Elm</option>
+        <option value="erlang">Erlang</option>
+        <option value="forth">Forth</option>
+        <option value="fortran">Fortran</option>
+        <option value="fsharp">Fsharp</option>
+        <option value="fsl">Fsl</option>
+        <option value="ftl">Ftl</option>
+        <option value="gcode">Gcode</option>
+        <option value="gherkin">Gherkin</option>
+        <option value="gitignore">Gitignore</option>
+        <option value="glsl">Glsl</option>
+        <option value="gobstones">Gobstones</option>
+        <option value="golang">Golang</option>
+        <option value="graphqlschema">Graphqlschema</option>
+        <option value="groovy">Groovy</option>
+        <option value="haml">Haml</option>
+        <option value="handlebars">Handlebars</option>
+        <option value="haskell_cabal">Haskell_Cabal</option>
+        <option value="haskell">Haskell</option>
+        <option value="haxe">Haxe</option>
+        <option value="hjson">Hjson</option>
+        <option value="html_elixir">Html_Elixir</option>
+        <option value="html">Html</option>
+        <option value="html_ruby">Html_Ruby</option>
+        <option value="ini">Ini</option>
+        <option value="io">Io</option>
+        <option value="jack">Jack</option>
+        <option value="jade">Jade</option>
+        <option value="java">Java</option>
+        <option value="javascript">Javascript</option>
+        <option value="json5">Json5</option>
+        <option value="jsoniq">Jsoniq</option>
+        <option value="json">Json</option>
+        <option value="jsp">Jsp</option>
+        <option value="jssm">Jssm</option>
+        <option value="jsx">Jsx</option>
+        <option value="julia">Julia</option>
+        <option value="kotlin">Kotlin</option>
+        <option value="latex">Latex</option>
+        <option value="latte">Latte</option>
+        <option value="less">Less</option>
+        <option value="liquid">Liquid</option>
+        <option value="lisp">Lisp</option>
+        <option value="livescript">Livescript</option>
+        <option value="logiql">Logiql</option>
+        <option value="logtalk">Logtalk</option>
+        <option value="lsl">Lsl</option>
+        <option value="lua">Lua</option>
+        <option value="luapage">Luapage</option>
+        <option value="lucene">Lucene</option>
+        <option value="makefile">Makefile</option>
+        <option value="markdown">Markdown</option>
+        <option value="mask">Mask</option>
+        <option value="matlab">Matlab</option>
+        <option value="maze">Maze</option>
+        <option value="mediawiki">Mediawiki</option>
+        <option value="mel">Mel</option>
+        <option value="mips">Mips</option>
+        <option value="mixal">Mixal</option>
+        <option value="mushcode">Mushcode</option>
+        <option value="mysql">Mysql</option>
+        <option value="nginx">Nginx</option>
+        <option value="nim">Nim</option>
+        <option value="nix">Nix</option>
+        <option value="nsis">Nsis</option>
+        <option value="nunjucks">Nunjucks</option>
+        <option value="objectivec">Objectivec</option>
+        <option value="ocaml">Ocaml</option>
+        <option value="pascal">Pascal</option>
+        <option value="perl">Perl</option>
+        <option value="pgsql">Pgsql</option>
+        <option value="php">Php</option>
+        <option value="php_laravel_blade">Php_Laravel_Blade</option>
+        <option value="pig">Pig</option>
+        <option value="plain_text">Plain_Text</option>
+        <option value="powershell">Powershell</option>
+        <option value="praat">Praat</option>
+        <option value="prisma">Prisma</option>
+        <option value="prolog">Prolog</option>
+        <option value="properties">Properties</option>
+        <option value="protobuf">Protobuf</option>
+        <option value="puppet">Puppet</option>
+        <option value="qml">Qml</option>
+        <option value="raku">Raku</option>
+        <option value="razor">Razor</option>
+        <option value="rdoc">Rdoc</option>
+        <option value="red">Red</option>
+        <option value="redshift">Redshift</option>
+        <option value="rhtml">Rhtml</option>
+        <option value="r">R</option>
+        <option value="rst">Rst</option>
+        <option value="ruby">Ruby</option>
+        <option value="rust">Rust</option>
+        <option value="sass">Sass</option>
+        <option value="scad">Scad</option>
+        <option value="scala">Scala</option>
+        <option value="scheme">Scheme</option>
+        <option value="scrypt">Scrypt</option>
+        <option value="scss">Scss</option>
+        <option value="sh">Sh</option>
+        <option value="sjs">Sjs</option>
+        <option value="slim">Slim</option>
+        <option value="smarty">Smarty</option>
+        <option value="smithy">Smithy</option>
+        <option value="snippets">Snippets</option>
+        <option value="soy_template">Soy_Template</option>
+        <option value="space">Space</option>
+        <option value="sparql">Sparql</option>
+        <option value="sql">Sql</option>
+        <option value="sqlserver">Sqlserver</option>
+        <option value="stylus">Stylus</option>
+        <option value="svg">Svg</option>
+        <option value="swift">Swift</option>
+        <option value="tcl">Tcl</option>
+        <option value="terraform">Terraform</option>
+        <option value="tex">Tex</option>
+        <option value="textile">Textile</option>
+        <option value="text">Text</option>
+        <option value="toml">Toml</option>
+        <option value="tsx">Tsx</option>
+        <option value="turtle">Turtle</option>
+        <option value="twig">Twig</option>
+        <option value="typescript">Typescript</option>
+        <option value="vala">Vala</option>
+        <option value="vbscript">Vbscript</option>
+        <option value="velocity">Velocity</option>
+        <option value="verilog">Verilog</option>
+        <option value="vhdl">Vhdl</option>
+        <option value="visualforce">Visualforce</option>
+        <option value="wollok">Wollok</option>
+        <option value="xml">Xml</option>
+        <option value="xquery">Xquery</option>
+        <option value="yaml">Yaml</option>
+        <option value="zeek">Zeek</option>
+      </select>
+      <div class="sep"></div>
+      <button onclick="window.location.href = '/'">New</button>
+      <div class="sep"></div>
+      <button id="savebutton" onclick="manager.saveEditor()">Save</button>
+    </div>
+    <div class="editors" id="editors"></div>
+
+    <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+      const API_BASE = "";
+
+      class EditorManager {
+        constructor() {
+          this.primary = null;
+          this.view = null;
+          this.canSave = true;
+
+          this.primaryDiv = null;
+          this.viewDiv = null;
+          this.mdDiv = null;
+          this.liveMd = false;
+
+          this.langOverride = null;
+
+          this.root = document.getElementById("editors");
+        }
+
+        #createEditor(id, mode, readonly, value) {
+          const editor = ace.edit(id);
+
+          editor.setTheme("ace/theme/one_dark");
+          editor.session.setMode(mode || "ace/mode/python");
+          editor.setShowPrintMargin(false);
+
+          editor.session.setValue(value);
+          editor.setReadOnly(readonly);
+
+          return editor;
+        }
+
+        #createEditorDiv(type) {
+          const div = document.createElement("div");
+
+          div.classList.add(type);
+          div.classList.add("editor");
+          div.id = type;
+
+          this.root.appendChild(div);
+
+          return div;
+        }
+
+        createPrimaryEditor(content) {
+          if (this.primary) {
+            return this.primary;
+          }
+
+          this.primaryDiv = this.#createEditorDiv("primaryEditor");
+
+          this.primary = this.#createEditor("primaryEditor", "ace/mode/python", false, content || "");
+          return this.primary;
+        }
+
+        createViewEditor(content) {
+          if (this.view) {
+            return this.view;
+          }
+
+          this.viewDiv = this.#createEditorDiv("viewEditor");
+
+          this.view = this.#createEditor("viewEditor", "ace/mode/python", true, content || "");
+          return this.view;
+        }
+
+        disableSave() {
+          this.canSave = false;
+        }
+
+        enableSave() {
+          this.canSave = true;
+        }
+
+        setLanguage() {
+          if (this.primary) {
+            this.primary.session.setMode("ace/mode/" + document.getElementById("language").value || "python");
+          }
+
+          if (this.view) {
+            this.view.session.setMode("ace/mode/" + document.getElementById("language").value || "python");
+          }
+        }
+
+        saveEditor() {
+          if (!this.canSave) {
+            return;
+          }
+
+          const data = this.primary.getValue();
+
+          fetch(`${API_BASE}/api/new`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              content: data,
+              language: document.getElementById("language").value || "python",
+            }),
+          }).then(res =>
+            res.json().then(data => {
+              const key = data.key;
+              window.location.href = `?id=${key}`;
+            }),
+          );
+        }
+
+        createMarkdownViewer() {
+          const mdEditor = document.createElement("div");
+          mdEditor.classList.add("mdv");
+          this.root.appendChild(mdEditor);
+
+          this.mdDiv = mdEditor;
+
+          return mdEditor;
+        }
+
+        updateMarkdownViewer(data) {
+          if (!this.mdDiv) {
+            return;
+          }
+
+          const md = marked.parse(data);
+
+          this.mdDiv.innerHTML = DOMPurify.sanitize(md);
+          hljs.highlightAll();
+        }
+
+        setMarkdownViewer(id) {
+          fetch(`${API_BASE}/api/item?key=${id}`).then(res =>
+            res.json().then(data => {
+              const mdEditor = this.createMarkdownViewer();
+              mdEditor.classList.add("mdv-pad");
+
+              this.updateMarkdownViewer(data.content);
+            }),
+          );
+        }
+
+        loadEditor(editorName, id) {
+          let editor;
+
+          if (editorName === "primary") {
+            editor = this.primary;
+          } else {
+            editor = this.view;
+          }
+
+          fetch(`${API_BASE}/api/item?key=${id}`).then(res =>
+            res.json().then(data => {
+              editor.setValue(data.content);
+              const lang = this.langOverride || data.language;
+              editor.session.setMode("ace/mode/" + lang);
+              document.getElementById("language").value = lang;
+
+              editor.selection.moveCursorFileStart();
+            }),
+          );
+        }
+
+        setEditorValue(editor, value) {
+          if (editor === "primary") {
+            this.primary.session.setValue(value);
+          } else if (editor === "view") {
+            this.view.session.setValue(value);
+          }
+        }
+
+        setEditorVisibility(editor, visible) {
+          let editorDiv;
+
+          if (editor === "primary") {
+            editorDiv = this.primaryDiv;
+          } else {
+            editorDiv = this.viewDiv;
+          }
+
+          if (visible) {
+            editorDiv.classList.remove("hidden");
+          } else {
+            editorDiv.classList.add("hidden");
+          }
+        }
+
+        setDualDisplay() {
+          this.createPrimaryEditor();
+          this.createViewEditor();
+
+          this.primaryDiv.classList.add("editor-hl");
+          this.viewDiv.classList.add("editor-hr");
+        }
+
+        setLiveMarkdown() {
+          this.liveMd = true;
+          const elem = this.createMarkdownViewer();
+
+          elem.classList.add("editor-hr");
+          elem.classList.add("editor");
+          elem.classList.add("mdv-live");
+
+          this.primary.commands.on("afterExec", eventData => {
+            this.updateMarkdownViewer(this.primary.getValue());
+          });
+        }
+      }
+
+      const manager = new EditorManager();
+
+      document.addEventListener(
+        "keydown",
+        function (e) {
+          if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey) && e.keyCode == 83) {
+            e.preventDefault();
+            manager.saveEditor();
+          }
+        },
+        false,
+      );
+
+      // Page setup
+      const url = new URL(window.location.href);
+      const id = url.searchParams.get("id");
+      const md = url.searchParams.get("md");
+      const compare = url.searchParams.get("compare");
+      const language = url.searchParams.get("language");
+
+      if (language) {
+        manager.langOverride = language;
+      }
+
+      if (id && !md && !compare) {
+        manager.createViewEditor();
+        manager.loadEditor("view", id);
+      } else if (id && compare && !md) {
+        manager.setDualDisplay();
+        manager.loadEditor("primary", id);
+        manager.loadEditor("view", compare);
+      } else if (md === "true") {
+        manager.setMarkdownViewer(id);
+      } else if (md === "editor") {
+        manager.createPrimaryEditor();
+        manager.setLiveMarkdown();
+        manager.primaryDiv.classList.add("editor-hl");
+
+        document.getElementById("language").value = "markdown";
+        manager.setLanguage();
+      } else {
+        manager.createPrimaryEditor();
+      }
+    </script>
+  </body>
+
+  <style type="text/css" media="screen">
+    body,
+    html {
+      margin: 0;
+      background-color: #282c34;
+      overflow: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: #f6f6f6;
+    }
+
+    .nav {
+      height: 2rem;
+      background: #161616;
+      margin: none;
+      color: #f6f6f6;
+      font-family: "Open Sans", sans-serif;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+
+      padding-left: 1rem;
+      padding-right: 1rem;
+
+      border-bottom: 0.25rem solid #575e6b;
+    }
+
+    .nav .fill {
+      width: 100%;
+    }
+
+    .nav button,
+    .nav select {
+      background: #5c5c5c;
+      border-style: none;
+      border-radius: 0.25rem;
+      color: #f6f6f6;
+    }
+
+    .nav .sep {
+      width: 0.5rem;
+    }
+
+    .editor {
+      position: absolute;
+      top: 2.25rem;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    .editor-hl {
+      width: 50%;
+      border-right: 2px solid #575e6b;
+    }
+
+    .editor-hr {
+      width: 50%;
+      left: calc(50% + 2px);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Markdown viewer */
+    .mdv {
+      color: #f6f6f6;
+      font-family: "Open Sans", sans-serif;
+    }
+
+    .mdv-live {
+      width: calc(50% - 2rem);
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .mdv-pad {
+      padding-left: 20%;
+      padding-right: 20%;
+    }
+
+    @media only screen and (max-width: 768px) {
+      .mdv-pad {
+        padding-left: 3%;
+        padding-right: 3%;
+      }
+    }
+
+    .mdv a {
+      text-decoration: none;
+    }
+
+    .mdv pre code {
+      border-radius: 0.75rem;
+      border: 1px solid #e2e2e2;
+    }
+
+    .mdv table {
+      border: 1px solid #e2e2e2;
+      width: 100%;
+      padding: 0;
+      border-radius: 0.75rem;
+    }
+
+    .mdv table th {
+      text-align: left;
+    }
+  </style>
+</html>
