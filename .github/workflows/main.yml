@@ -28,7 +28,7 @@ jobs:
       - name: Setup PostgreSQL
         uses: Harmon758/postgresql-action@v1.0.0
         with:
-          postgresql version: 13d
+          postgresql version: 13
 
       - name: Setup PSQL
         run: psql -U postgres -f schema.sql
